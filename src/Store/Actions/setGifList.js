@@ -12,3 +12,8 @@ export const setGifListName = gifListName => ({
   type: "setGifListName",
   gifListName
 });
+
+export const setHdQuality = hdQuality => ({
+  type: "setHdQuality",
+  hdQuality
+});

@@ -7,7 +7,6 @@ import {
 import { setSearchTerm } from "../Actions/setSearchTerm";
 
 export const getTrendingList = () => dispatch => {
-  console.log("TRENDING LIST");
   dispatch(setGifListLoading(true));
   axios
     .get("https://api.giphy.com/v1/gifs/trending", {

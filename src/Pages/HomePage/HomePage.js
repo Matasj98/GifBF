@@ -4,10 +4,12 @@ import {
   makeStyles,
   Box,
   Grid,
+  Switch,
   CircularProgress,
   Typography
 } from "@material-ui/core";
 import { getTrendingList } from "../../Store/Thunk/getTrendingList";
+import { setHdQuality } from "../../Store/Actions/setGifList";
 
 const useStyles = makeStyles({
   root: {
@@ -36,7 +38,8 @@ const HomePage = () => {
     gifList: state.gifList.gifList,
     gifListName: state.gifList.gifListName,
     loading: state.gifList.isLoading,
-    searchTerm: state.searchTerm.searchTerm
+    searchTerm: state.searchTerm.searchTerm,
+    hdQuality: state.gifList.hdQuality
   }));
   const dispatch = useDispatch();
   const [loadingImageList, setLoadingImageList] = useState([]);
@@ -67,6 +70,8 @@ const HomePage = () => {
     );
   };
 
+  const changeQuality = () => dispatch(setHdQuality(!reduxStore.hdQuality));
+
   if (reduxStore.loading)
     return (
       <Box
@@ -89,18 +94,39 @@ const HomePage = () => {
   }
 
   return (
-    <Box width="90%" m="50px auto">
-      <Typography
-        variant="h3"
-        style={{
-          fontFamily: '"Righteous", cursive',
-          color: "white",
-          marginBottom: "10px",
-          textTransform: "capitalize"
-        }}
+    <Box width="90%" m="50px auto" style={{ color: "white" }}>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        width="100%"
       >
-        {reduxStore.gifListName}
-      </Typography>
+        {" "}
+        <Typography
+          variant="h3"
+          style={{
+            fontFamily: '"Righteous", cursive',
+            color: "white",
+            marginBottom: "10px",
+            textTransform: "capitalize"
+          }}
+        >
+          {reduxStore.gifListName}
+        </Typography>
+        <Box>
+          <Typography align="center" variant="h6">
+            Quality:
+          </Typography>
+          <Grid container alignItems="center" spacing={1} wrap="nowrap">
+            <Grid item>Standart</Grid>
+            <Grid item>
+              <Switch checked={reduxStore.hdQuality} onChange={changeQuality} />
+            </Grid>
+            <Grid item>HD</Grid>
+          </Grid>
+        </Box>
+      </Box>
+
       <Grid container spacing={1} wrap="wrap">
         {reduxStore.gifList.map((item, index) => {
           return (
@@ -126,7 +152,11 @@ const HomePage = () => {
                   height="100%"
                   width="100%"
                   onLoad={() => loadedImage(item.id)}
-                  src={item.images.fixed_height_downsampled.url}
+                  src={
+                    reduxStore.hdQuality
+                      ? item.images.original.url
+                      : item.images.fixed_height_downsampled.url
+                  }
                   style={{ objectFit: "cover", position: "absolute" }}
                   alt={item.title}
                 />

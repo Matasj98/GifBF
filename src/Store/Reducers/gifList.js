@@ -1,7 +1,8 @@
 const initialState = {
   gifList: [],
   gifListName: null,
-  isLoading: true
+  isLoading: true,
+  hdQuality: false
 };
 
 export const gifList = (state = initialState, action) => {
@@ -12,6 +13,8 @@ export const gifList = (state = initialState, action) => {
       return { ...state, isLoading: action.isLoading };
     case "setGifListName":
       return { ...state, gifListName: action.gifListName };
+    case "setHdQuality":
+      return { ...state, hdQuality: action.hdQuality };
     default:
       return state;
   }
