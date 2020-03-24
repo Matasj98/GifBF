@@ -6,7 +6,9 @@ import {
   Grid,
   Switch,
   CircularProgress,
-  Typography
+  Typography,
+  useMediaQuery,
+  useTheme
 } from "@material-ui/core";
 import { getTrendingList } from "../../Store/Thunk/getTrendingList";
 import { setHdQuality } from "../../Store/Actions/setGifList";
@@ -43,6 +45,8 @@ const HomePage = () => {
   }));
   const dispatch = useDispatch();
   const [loadingImageList, setLoadingImageList] = useState([]);
+  const matchesWidth = useMediaQuery(useTheme().breakpoints.up("sm"));
+
   useEffect(() => {
     trendingList();
   }, []);
@@ -92,18 +96,18 @@ const HomePage = () => {
   if (reduxStore.gifList === "No data") {
     return <ErrorMessage text="No data found" />;
   }
-
+  console.log(matchesWidth);
   return (
     <Box width="90%" m="50px auto" style={{ color: "white" }}>
       <Box
-        display="flex"
+        display={matchesWidth ? "flex" : null}
         justifyContent="space-between"
         alignItems="center"
         width="100%"
       >
         {" "}
         <Typography
-          variant="h3"
+          variant="h4"
           style={{
             fontFamily: '"Righteous", cursive',
             color: "white",
@@ -114,10 +118,7 @@ const HomePage = () => {
           {reduxStore.gifListName}
         </Typography>
         <Box>
-          <Typography align="center" variant="h6">
-            Quality:
-          </Typography>
-          <Grid container alignItems="center" spacing={1} wrap="nowrap">
+          <Grid container alignItems="center" spacing={0} wrap="wrap">
             <Grid item>Standart</Grid>
             <Grid item>
               <Switch checked={reduxStore.hdQuality} onChange={changeQuality} />
