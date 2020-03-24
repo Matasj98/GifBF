@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "bfdd8c5a3b074f567c12e6598acbe4ed",
+    "revision": "05085fdcdf82ad24c98cdeb98dabf891",
     "url": "/GifBF/index.html"
   },
   {
-    "revision": "1515ff90ba7c3693ded1",
+    "revision": "a0ced02f464454d60ac9",
     "url": "/GifBF/static/css/main.d939642b.chunk.css"
   },
   {
-    "revision": "f2c1a89cc282114792eb",
-    "url": "/GifBF/static/js/2.99824905.chunk.js"
+    "revision": "e3c94ef4a05e4c9391e4",
+    "url": "/GifBF/static/js/2.2cef5936.chunk.js"
   },
   {
     "revision": "0749163b59fbee32225059cb60c18af6",
-    "url": "/GifBF/static/js/2.99824905.chunk.js.LICENSE.txt"
+    "url": "/GifBF/static/js/2.2cef5936.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "1515ff90ba7c3693ded1",
-    "url": "/GifBF/static/js/main.6cd4f0ed.chunk.js"
+    "revision": "a0ced02f464454d60ac9",
+    "url": "/GifBF/static/js/main.a97f5c53.chunk.js"
   },
   {
     "revision": "5df09e6be54879ae0239",
