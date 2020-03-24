@@ -48,12 +48,8 @@ const HomePage = () => {
   const matchesWidth = useMediaQuery(useTheme().breakpoints.up("sm"));
 
   useEffect(() => {
-    trendingList();
-  }, []);
-
-  const trendingList = () => {
     dispatch(getTrendingList());
-  };
+  }, [dispatch]);
 
   const loadedImage = id => {
     setLoadingImageList(loadingImageList.concat(id));

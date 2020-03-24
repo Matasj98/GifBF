@@ -6,7 +6,6 @@ import {
   makeStyles,
   Slide,
   Box,
-  // ClickAwayListener,
   useMediaQuery,
   useTheme
 } from "@material-ui/core";
@@ -23,18 +22,16 @@ const useStyles = makeStyles({
     height: "100vh",
     "&::-webkit-scrollbar": {
       width: "0.4em",
-      backgroundColor: '#4f4f4f'
+      backgroundColor: "#4f4f4f"
     },
     "&::-webkit-scrollbar-track": {
       boxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
       webkitBoxShadow: "inset 0 0 6px rgba(0,0,0,0.00)"
     },
     "&::-webkit-scrollbar-thumb": {
-      backgroundColor: "rgba(0,0,0,.1)",
       outline: "1px solid slategrey",
-      backgroundColor: '#381737'
+      backgroundColor: "#381737"
     }
-    // direction: 'rtl'
   }
 });
 function App() {
@@ -46,15 +43,10 @@ function App() {
     setIsOpen(!isOpen);
   };
 
-  // const clickAwayCheck = () => {
-  //   if (matchesSize === false && !isOpen) setIsOpen(false);
-  // };
-
   return (
     <div>
       <NavBar openCloseMenu={openCloseMenu} />
       <Grid className={classes.item} container>
-        {/* <ClickAwayListener onClickAway={clickAwayCheck}> */}
         <Slide appear={false} direction="right" in={matchesSize || isOpen}>
           <Box
             style={{ backgroundColor: "#121212" }}
@@ -71,7 +63,6 @@ function App() {
             </Grid>
           </Box>
         </Slide>
-        {/* </ClickAwayListener> */}
         <Grid item xs>
           <HomePage />
         </Grid>
