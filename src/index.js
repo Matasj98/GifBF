@@ -10,9 +10,9 @@ import {
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import { allReducer } from "./Store/Reducers";
-
+import Thunk from "redux-thunk";
 import { applyMiddleware } from "redux";
-import { logger } from "redux-logger";
+// import { logger } from "redux-logger";
 
 const theme = createMuiTheme({
   typography: {
@@ -20,7 +20,7 @@ const theme = createMuiTheme({
   }
 });
 
-const store = createStore(allReducer, applyMiddleware(logger));
+const store = createStore(allReducer, applyMiddleware(Thunk));
 
 ReactDOM.render(
   <Provider store={store}>

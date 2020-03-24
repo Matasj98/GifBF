@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
-import { searchBy } from "./searchBy";
+import { searchTerm } from "./searchTerm";
+import { gifList } from "./gifList";
 
 const appReducer = combineReducers({
-  searchBy
+  searchTerm,
+  gifList
 });
 
 export const allReducer = (state, action) => {

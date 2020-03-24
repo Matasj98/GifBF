@@ -12,7 +12,8 @@ import {
 } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { setSearchByCategory } from "../../Store/Actions/setSearchBy";
+import { setSearchTerm } from "../../Store/Actions/setSearchTerm";
+import { getGifListCustom } from "../../Store/Thunk/getGifListCustom";
 
 const ListItemStyled = withStyles({
   root: {
@@ -62,7 +63,8 @@ const CategoryList = () => {
 
   const select = (id, name) => {
     setData({ ...data, selectedId: id });
-    dispatch(setSearchByCategory(name));
+    dispatch(setSearchTerm(name));
+    dispatch(getGifListCustom());
   };
 
   if (data.loading)

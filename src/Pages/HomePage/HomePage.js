@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   makeStyles,
   Box,
@@ -6,7 +7,7 @@ import {
   CircularProgress,
   Typography
 } from "@material-ui/core";
-import axios from "axios";
+import { getTrendingList } from "../../Store/Thunk/getTrendingList";
 
 const useStyles = makeStyles({
   root: {
@@ -22,7 +23,6 @@ const useStyles = makeStyles({
     background:
       "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, " +
       "rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)"
-    // bottom: "0"
   },
   tileBarText: {
     fontFamily: '"Anton", sans-serif',
@@ -32,38 +32,42 @@ const useStyles = makeStyles({
 });
 const HomePage = () => {
   const classes = useStyles();
-  const [data, setData] = useState({
-    trendingList: [],
-    loading: true,
-    loadingImageList: []
-  });
-
+  const reduxStore = useSelector(state => ({
+    gifList: state.gifList.gifList,
+    gifListName: state.gifList.gifListName,
+    loading: state.gifList.isLoading,
+    searchTerm: state.searchTerm.searchTerm
+  }));
+  const dispatch = useDispatch();
+  const [loadingImageList, setLoadingImageList] = useState([]);
   useEffect(() => {
     trendingList();
   }, []);
 
   const trendingList = () => {
-    axios
-      .get("https://api.giphy.com/v1/gifs/trending", {
-        params: {
-          api_key: "WYuuWO9uW1KJpPALeDKJM0NdJkjnccax"
-        }
-      })
-      .then(res => {
-        setData({ ...data, loading: false, trendingList: res.data.data });
-        console.log(res.data.data);
-      })
-      .catch(err => {
-        setData({ ...data, loading: false });
-        console.log(err);
-      });
+    dispatch(getTrendingList());
   };
 
   const loadedImage = id => {
-    setData({ ...data, loadingImageList: data.loadingImageList.concat(id) });
+    setLoadingImageList(loadingImageList.concat(id));
   };
 
-  if (data.loading)
+  const ErrorMessage = ({ text }) => {
+    return (
+      <Box
+        height="90vh"
+        width="100%"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        style={{ color: "white" }}
+      >
+        <Typography variant="h4">{text}</Typography>
+      </Box>
+    );
+  };
+
+  if (reduxStore.loading)
     return (
       <Box
         height="90vh"
@@ -76,6 +80,14 @@ const HomePage = () => {
       </Box>
     );
 
+  if (reduxStore.gifList === "Error") {
+    return <ErrorMessage text="Error occured..." />;
+  }
+
+  if (reduxStore.gifList === "No data") {
+    return <ErrorMessage text="No data found" />;
+  }
+
   return (
     <Box width="90%" m="50px auto">
       <Typography
@@ -83,18 +95,20 @@ const HomePage = () => {
         style={{
           fontFamily: '"Righteous", cursive',
           color: "white",
-          marginBottom: "10px"
+          marginBottom: "10px",
+          textTransform: "capitalize"
         }}
       >
-        Trending GIFs
+        {reduxStore.gifListName}
       </Typography>
       <Grid container spacing={1} wrap="wrap">
-        {data.trendingList.map((item, index) => {
+        {reduxStore.gifList.map((item, index) => {
           return (
             <Grid
               key={item.id}
               item
               xs={12}
+              sm={6}
               md={index % 3 === 0 ? 6 : 3}
               lg={index % 3 === 0 ? 4 : 2}
               className={classes.gridTile}
@@ -103,7 +117,7 @@ const HomePage = () => {
                 height="100%"
                 width="100%"
                 style={
-                  data.loadingImageList.includes(item.id)
+                  loadingImageList.includes(item.id)
                     ? { position: "relative" }
                     : { display: "none" }
                 }
@@ -112,7 +126,7 @@ const HomePage = () => {
                   height="100%"
                   width="100%"
                   onLoad={() => loadedImage(item.id)}
-                  src={item.images.downsized_large.url}
+                  src={item.images.fixed_height_downsampled.url}
                   style={{ objectFit: "cover", position: "absolute" }}
                   alt={item.title}
                 />
@@ -127,7 +141,7 @@ const HomePage = () => {
                 </Box>
               </Box>
 
-              {data.loadingImageList.includes(item.id) ? null : (
+              {loadingImageList.includes(item.id) ? null : (
                 <Box
                   height="100%"
                   width="100%"
