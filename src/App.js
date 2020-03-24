@@ -5,6 +5,7 @@ import {
   Grid,
   makeStyles,
   Slide,
+  Box,
   // ClickAwayListener,
   useMediaQuery,
   useTheme
@@ -16,10 +17,23 @@ const useStyles = makeStyles({
     minHeight: "100vh"
   },
   categoryList: {
-    backgroundColor: "#121212",
     width: "200px",
-    // overflowY: "scroll",
-    // height: '100vh',
+    overflowY: "scroll",
+    overflow: "hidden",
+    height: "100vh",
+    "&::-webkit-scrollbar": {
+      width: "0.4em",
+      backgroundColor: '#4f4f4f'
+    },
+    "&::-webkit-scrollbar-track": {
+      boxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
+      webkitBoxShadow: "inset 0 0 6px rgba(0,0,0,0.00)"
+    },
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "rgba(0,0,0,.1)",
+      outline: "1px solid slategrey",
+      backgroundColor: '#381737'
+    }
     // direction: 'rtl'
   }
 });
@@ -42,15 +56,20 @@ function App() {
       <Grid className={classes.item} container>
         {/* <ClickAwayListener onClickAway={clickAwayCheck}> */}
         <Slide appear={false} direction="right" in={matchesSize || isOpen}>
-          <Grid
-            style={matchesSize || isOpen ? null : { display: "none" }}
-            className={classes.categoryList}
-            item
-            container
-            alignItems={null}
+          <Box
+            style={{ backgroundColor: "#121212" }}
+            display={matchesSize || isOpen ? null : "none"}
           >
-            <CategoryList />
-          </Grid>
+            <Grid
+              style={matchesSize || isOpen ? null : { display: "none" }}
+              item
+              container
+              alignItems={null}
+              className={classes.categoryList}
+            >
+              <CategoryList />
+            </Grid>
+          </Box>
         </Slide>
         {/* </ClickAwayListener> */}
         <Grid item xs>

@@ -27,7 +27,8 @@ const useStyles = makeStyles(theme => ({
   },
   logo: {
     fontFamily: '"Righteous", cursive',
-    letterSpacing: "2px"
+    letterSpacing: "2px",
+    cursor: "pointer"
   },
   search: {
     backgroundColor: "gray",
@@ -52,6 +53,10 @@ const NavBar = ({ openCloseMenu }) => {
     dispatch(getGifListCustom());
   };
 
+  const searchTrending = () => {
+    dispatch(getTrendingList());
+  };
+
   return (
     <div>
       <Slide appear={false} direction="down" in={!trigger}>
@@ -65,7 +70,11 @@ const NavBar = ({ openCloseMenu }) => {
                   </IconButton>
                 </Box>
               </Hidden>
-              <Typography className={classes.logo} variant="h3">
+              <Typography
+                onClick={searchTrending}
+                className={classes.logo}
+                variant="h3"
+              >
                 GifBF
               </Typography>
               <Box
@@ -74,10 +83,7 @@ const NavBar = ({ openCloseMenu }) => {
                 alignItems="center"
                 justifyContent="space-between"
               >
-                <Button
-                  onClick={() => dispatch(getTrendingList())}
-                  style={{ color: "inherit" }}
-                >
+                <Button onClick={searchTrending} style={{ color: "inherit" }}>
                   <Typography
                     align="center"
                     variant="h6"
@@ -97,6 +103,7 @@ const NavBar = ({ openCloseMenu }) => {
                     style={{ color: "white" }}
                     placeholder="Search for GIF"
                     onChange={handleChange}
+                    onKeyDown={e => (e.keyCode === 13 ? search() : null)}
                   />
                   <IconButton onClick={search}>
                     <Search />
