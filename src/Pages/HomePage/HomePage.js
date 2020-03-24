@@ -74,7 +74,10 @@ const HomePage = () => {
     );
   };
 
-  const changeQuality = () => dispatch(setHdQuality(!reduxStore.hdQuality));
+  const changeQuality = () => {
+    setLoadingImageList([]);
+    dispatch(setHdQuality(!reduxStore.hdQuality));
+  };
 
   if (reduxStore.loading)
     return (
@@ -96,7 +99,7 @@ const HomePage = () => {
   if (reduxStore.gifList === "No data") {
     return <ErrorMessage text="No data found" />;
   }
-  console.log(matchesWidth);
+
   return (
     <Box width="90%" m="50px auto" style={{ color: "white" }}>
       <Box

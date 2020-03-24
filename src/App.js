@@ -17,7 +17,10 @@ const useStyles = makeStyles({
   },
   categoryList: {
     backgroundColor: "#121212",
-    width: "200px"
+    width: "200px",
+    // overflowY: "scroll",
+    // height: '100vh',
+    // direction: 'rtl'
   }
 });
 function App() {
