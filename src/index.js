@@ -12,7 +12,6 @@ import { createStore } from "redux";
 import { allReducer } from "./Store/Reducers";
 import Thunk from "redux-thunk";
 import { applyMiddleware } from "redux";
-// import { logger } from "redux-logger";
 
 const theme = createMuiTheme({
   typography: {
