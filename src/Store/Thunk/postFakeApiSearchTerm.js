@@ -8,8 +8,6 @@ export const postFakeApiSearchTerm = () => (dispatch, getState) => {
             term: term,
         })
         .then((res) => {
-            console.log("Post response");
-            console.log(res.data);
             dispatch(setFakeApiSearchTerm(res.data.term, res.data.createdAt));
         })
         .catch((err) => console.log(err));
