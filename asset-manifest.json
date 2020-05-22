@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/GifBF/static/css/main.719f39d5.chunk.css",
-    "main.js": "/GifBF/static/js/main.792ba0f9.chunk.js",
-    "main.js.map": "/GifBF/static/js/main.792ba0f9.chunk.js.map",
+    "main.js": "/GifBF/static/js/main.9dac5ec0.chunk.js",
+    "main.js.map": "/GifBF/static/js/main.9dac5ec0.chunk.js.map",
     "runtime-main.js": "/GifBF/static/js/runtime-main.68ffff81.js",
     "runtime-main.js.map": "/GifBF/static/js/runtime-main.68ffff81.js.map",
     "static/js/2.83127c96.chunk.js": "/GifBF/static/js/2.83127c96.chunk.js",
     "static/js/2.83127c96.chunk.js.map": "/GifBF/static/js/2.83127c96.chunk.js.map",
     "index.html": "/GifBF/index.html",
-    "precache-manifest.d9e2f456a1db55573c6ac4de6cb450f4.js": "/GifBF/precache-manifest.d9e2f456a1db55573c6ac4de6cb450f4.js",
+    "precache-manifest.89b034aaa523a5539bf44612869bf1e4.js": "/GifBF/precache-manifest.89b034aaa523a5539bf44612869bf1e4.js",
     "service-worker.js": "/GifBF/service-worker.js",
     "static/css/main.719f39d5.chunk.css.map": "/GifBF/static/css/main.719f39d5.chunk.css.map",
     "static/js/2.83127c96.chunk.js.LICENSE.txt": "/GifBF/static/js/2.83127c96.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.68ffff81.js",
     "static/js/2.83127c96.chunk.js",
     "static/css/main.719f39d5.chunk.css",
-    "static/js/main.792ba0f9.chunk.js"
+    "static/js/main.9dac5ec0.chunk.js"
   ]
 }
