@@ -2,11 +2,13 @@ import { combineReducers } from "redux";
 import { searchTerm } from "./searchTerm";
 import { gifList } from "./gifList";
 import { fakeApiSearchTerm } from "./fakeApiSearchTerm";
+import { snackBar } from "./snackBar";
 
 const appReducer = combineReducers({
     searchTerm,
     gifList,
-    fakeApiSearchTerm
+    fakeApiSearchTerm,
+    snackBar,
 });
 
 export const allReducer = (state, action) => {

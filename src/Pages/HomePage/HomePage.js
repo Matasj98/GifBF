@@ -1,24 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-    makeStyles,
-    Box,
-    Grid,
-    Switch,
-    InputBase,
-    IconButton,
-    CircularProgress,
-    Typography,
-    useMediaQuery,
-    useTheme,
-    Button,
-} from "@material-ui/core";
+import { makeStyles, Box, Grid, Switch, CircularProgress, Typography, useMediaQuery, useTheme, Button } from "@material-ui/core";
 import { getTrendingList } from "../../Store/Thunk/getTrendingList";
-import { getGifListCustom } from "../../Store/Thunk/getGifListCustom";
-import { setSearchTerm } from "../../Store/Actions/setSearchTerm";
 import { setHdQuality } from "../../Store/Actions/setGifList";
-import { Search } from "@material-ui/icons";
 import { updateFakeApiSearchTerm } from "../../Store/Thunk/updateFakeApiSearchTerm";
+import { setSnackBarOpen } from "../../Store/Actions/setSnackBar";
+import { setSnackBarLink } from "../../Store/Actions/setSnackBar";
+import SearchBar from "../../Components/SearchBar/SearchBar";
+import SnackBar from "../../Components/SnackBar/SnackBar";
 import moment from "moment";
 
 const useStyles = makeStyles({
@@ -39,11 +28,6 @@ const useStyles = makeStyles({
         color: "#b3b3b3",
         textTransform: "capitalize",
     },
-    search: {
-        backgroundColor: "#8a0b31",
-        padding: "0 10px",
-        borderRadius: "5px",
-    },
 });
 const HomePage = () => {
     const classes = useStyles();
@@ -51,7 +35,6 @@ const HomePage = () => {
         gifList: state.gifList.gifList,
         gifListName: state.gifList.gifListName,
         loading: state.gifList.isLoading,
-        searchTerm: state.searchTerm.searchTerm,
         hdQuality: state.gifList.hdQuality,
         fakeApiSearchTerm: {
             term: state.fakeApiSearchTerm.term,
@@ -83,12 +66,9 @@ const HomePage = () => {
         dispatch(setHdQuality(!reduxStore.hdQuality));
     };
 
-    const search = () => {
-        dispatch(getGifListCustom());
-    };
-
-    const handleChange = (e) => {
-        dispatch(setSearchTerm(e.target.value));
+    const setSnackBarData = (gifLink) => {
+        dispatch(setSnackBarOpen(true));
+        dispatch(setSnackBarLink(gifLink));
     };
 
     if (reduxStore.loading)
@@ -108,19 +88,7 @@ const HomePage = () => {
 
     return (
         <Box width='90%' m='50px auto' style={{ color: "white" }}>
-            <Box mb='20px' display='flex' alignItems='center' justifyContent='space-between' className={classes.search}>
-                <InputBase
-                    fullWidth
-                    value={reduxStore.searchTerm}
-                    style={{ color: "white" }}
-                    placeholder='Search for GIF'
-                    onChange={handleChange}
-                    onKeyDown={(e) => (e.keyCode === 13 ? search() : null)}
-                />
-                <IconButton onClick={search}>
-                    <Search />
-                </IconButton>
-            </Box>
+            <SearchBar />
             <Box display={matchesWidth ? "flex" : null} justifyContent='space-between' alignItems='center' width='100%'>
                 <Typography
                     variant='h4'
@@ -153,11 +121,19 @@ const HomePage = () => {
                             sm={6}
                             md={index % 3 === 0 ? 6 : 3}
                             lg={index % 3 === 0 ? 4 : 2}
-                            className={classes.gridTile}>
+                            className={classes.gridTile}
+                            onClick={() => {
+                                setSnackBarData(item.url);
+                            }}>
                             <Box
+                                // style={{  }}
                                 height='100%'
                                 width='100%'
-                                style={loadingImageList.includes(item.id) ? { position: "relative" } : { display: "none" }}>
+                                style={
+                                    loadingImageList.includes(item.id)
+                                        ? { position: "relative", cursor: "pointer" }
+                                        : { display: "none" }
+                                }>
                                 <img
                                     height='100%'
                                     width='100%'
@@ -204,6 +180,7 @@ const HomePage = () => {
                     </Box>
                 )}
             </Box>
+            <SnackBar />
         </Box>
     );
 };
